@@ -11,7 +11,7 @@
 **Sistema de Gestão Empresarial Completo**  
 Desenvolvido para pequenas e médias empresas de varejo
 
-[**Acessar Sistema Online** 🚀](https://rodrigolordroyale3-design.github.io/erp-progestao/) ·
+[**Acessar Sistema Online** 🚀](https://rodrigolordroyale3-design.github.io/erp-progestao/)
 [**Funcionalidades**](#-funcionalidades) ·
 [**Roadmap**](#-roadmap) ·
 [**Tecnologias**](#-tecnologias)
