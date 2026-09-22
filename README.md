@@ -63,7 +63,7 @@ O projeto está em constante evolução, com o objetivo de se tornar uma platafo
 
 ### Online
 O sistema está hospedado gratuitamente no **GitHub Pages**:
-> 🔗 **https://SEU-USUARIO.github.io/erp-progestao/**
+> 🔗 **(https://rodrigolordroyale3-design.github.io/erp-progestao/)**
 
 ### Localmente
 Para rodar o sistema no seu computador:
