@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERP ProGestão | Sistema de Gestão Empresarial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #eff6ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --dark: #0f172a;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============ TOPBAR ============ */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid var(--gray-200);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.logo-text h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+}
+
+.logo-text span {
+  font-size: 11px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.loja-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--gray-100);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.loja-info i {
+  color: var(--primary);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--gray-200);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.user-menu:hover {
+  border-color: var(--gray-300);
+  background: var(--gray-50);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+/* ============ LAYOUT ============ */
+.layout {
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  width: 260px;
+  background: #fff;
+  border-right: 1px solid var(--gray-200);
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+.sidebar-section {
+  padding: 0 12px;
+  margin-bottom: 8px;
+}
+
+.sidebar-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+  padding: 12px 12px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin: 2px 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--gray-600);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.nav-item.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-left-color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-item i {
+  width: 18px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--gray-200);
+  color: var(--gray-600);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.nav-badge.ai {
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  color: #fff;
+}
+
+/* ============ MAIN CONTENT ============ */
+.main {
+  flex: 1;
+  padding: 28px 32px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header small {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.page-header h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.page-header p {
+  font-size: 14px;
+  color: var(--gray-500);
+}
+
+/* ============ TABS ============ */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ CARDS ============ */
+.card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title i {
+  color: var(--primary);
+}
+
+/* ============ KPI CARDS ============ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.kpi-card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+}
+
+.kpi-card.success::before { background: var(--success); }
+.kpi-card.warning::before { background: var(--warning); }
+.kpi-card.danger::before { background: var(--danger); }
+.kpi-card.info::before { background: #06b6d4; }
+
+.kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.kpi-card.success .kpi-icon { background: #ecfdf5; color: var(--success); }
+.kpi-card.warning .kpi-icon { background: #fffbeb; color: var(--warning); }
+.kpi-card.danger .kpi-icon { background: #fef2f2; color: var(--danger); }
+.kpi-card.info .kpi-icon { background: #ecfeff; color: #06b6d4; }
+
+.kpi-label {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.kpi-sub {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 4px;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.25);
+}
+
+.btn-success {
+  background: var(--success);
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #059669;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* ============ CIP GRID ============ */
+.cip-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cip-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+}
+
+.cip-stat-label {
+  font-size: 13px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.cip-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.cip-stat.pending .cip-stat-value { color: var(--warning); }
+.cip-stat.approved .cip-stat-value { color: var(--success); }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.product-card.approved {
+  border-left: 4px solid var(--success);
+}
+
+.product-card.pending {
+  border-left: 4px solid var(--warning);
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-image .placeholder {
+  color: var(--gray-400);
+  font-size: 40px;
+}
+
+.product-body {
+  padding: 18px;
+}
+
+.product-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.product-id {
+  font-size: 11px;
+  color: var(--gray-400);
+  font-family: monospace;
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.product-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.status-pending {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.status-approved {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============ SECTION TITLES ============ */
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin: 32px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+
+/* ============ EMPTY STATE ============ */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-400);
+  background: #fff;
+  border: 1px dashed var(--gray-300);
+  border-radius: var(--radius-lg);
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ============ DASHBOARD WELCOME ============ */
+.welcome-banner {
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  color: #fff;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-banner::before {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.welcome-banner::after {
+  content: '';
+  position: absolute;
+  right: 60px;
+  bottom: -80px;
+  width: 160px;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.welcome-banner h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.welcome-banner p {
+  font-size: 14px;
+  opacity: 0.9;
+  max-width: 500px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.welcome-banner .btn {
+  background: #fff;
+  color: var(--primary);
+  position: relative;
+}
+
+.welcome-banner .btn:hover {
+  background: var(--gray-100);
+}
+
+/* ============ MODAL ============ */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.modal-text {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .sidebar { width: 220px; }
+  .main { padding: 20px; }
+}
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--gray-200); }
+  .topbar { padding: 0 16px; }
+  .user-name { display: none; }
+  .loja-info { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-building"></i>
+      </div>
+      <div class="logo-text">
+        <h1>ERP ProGestão</h1>
+        <span>Sistema de Gestão Empresarial · v2.0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="topbar-right">
+    <div class="loja-info">
+      <i class="fas fa-store"></i>
+      Loja Principal
+    </div>
+    <div class="user-menu">
+      <div class="user-avatar">AD</div>
+      <span class="user-name">Administrador</span>
+      <i class="fas fa-chevron-down" style="font-size:11px; color:var(--gray-400);"></i>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LAYOUT ============ -->
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Principal</div>
+    
+    <div class="nav-item active" data-tab="dashboard" onclick="mudarAba('dashboard')">
+      <i class="fas fa-chart-pie"></i>
+      <span>Dashboard</span>
+    </div>
+
+    <div class="sidebar-title">Operacional</div>
+    
+    <div class="nav-item" data-tab="estoque" onclick="mudarAba('estoque')">
+      <i class="fas fa-boxes"></i>
+      <span>Estoque</span>
+      <span class="nav-badge" id="badge-estoque">0</span>
+    </div>
+    
+    <div class="nav-item" data-tab="pdv" onclick="mudarAba('pdv')">
+      <i class="fas fa-cash-register"></i>
+      <span>PDV Caixa</span>
+    </div>
+    
+    <div class="nav-item" data-tab="importxml" onclick="mudarAba('importxml')">
+      <i class="fas fa-file-invoice"></i>
+      <span>Entrada NF-e</span>
+    </div>
+
+    <div class="sidebar-title">Inteligência</div>
+    
+    <div class="nav-item" data-tab="cip" onclick="mudarAba('cip')">
+      <i class="fas fa-images"></i>
+      <span>CIP Imagens</span>
+      <span class="nav-badge ai">AI</span>
+    </div>
+
+    <div class="sidebar-title">Sistema</div>
+    
+    <div class="nav-item" onclick="gerarDadosExemplo()">
+      <i class="fas fa-database" style="color:var(--success);"></i>
+      <span>Dados Exemplo</span>
+    </div>
+    
+    <div class="nav-item" onclick="limparBanco()">
+      <i class="fas fa-redo" style="color:var(--danger);"></i>
+      <span>Resetar Sistema</span>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="tab-content active" id="tab-dashboard">
+      <div class="page-header">
+        <small>Visão Geral</small>
+        <h2>Dashboard Gerencial</h2>
+        <p>Acompanhe em tempo real os indicadores da sua empresa</p>
+      </div>
+
+      <div class="welcome-banner">
+        <h3>👋 Bem-vindo ao ERP ProGestão!</h3>
+        <p>Sistema completo de gestão empresarial com módulos de Estoque, PDV, Fiscal e o exclusivo Motor CIP de Busca Inteligente de Imagens.</p>
+        <button class="btn" onclick="gerarDadosExemplo()">
+          <i class="fas fa-play"></i>
+          Começar com Dados de Exemplo
+        </button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fas fa-box"></i></div>
+          <div class="kpi-label">Total de Produtos</div>
+          <div class="kpi-value" id="kpi-produtos">0</div>
+          <div class="kpi-sub">cadastrados</div>
+        </div>
+        <div class="kpi-card warning">
+          <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="kpi-label">Estoque Baixo</div>
+          <div class="kpi-value" id="kpi-baixo">0</div>
+          <div class="kpi-sub">itens</div>
+        </div>
+        <div class="kpi-card success">
+          <div class="kpi-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="kpi-label">Imagens Aprovadas</div>
+          <div class="kpi-value" id="kpi-aprovadas">0</div>
+          <div class="kpi-sub">no CIP</div>
+        </div>
+        <div class="kpi-card info">
+          <div class="kpi-icon"><i class="fas fa-clock"></i></div>
+          <div class="kpi-label">Pendentes</div>
+          <div class="kpi-value" id="kpi-pendentes">0</div>
+          <div class="kpi-sub">aguardando aprovação</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-info-circle"></i>
+            Módulos Disponíveis
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+          <div style="padding:18px; background:var(--gray-50); border-radius:var(--radius); border:1px solid var(--gray-200);">
+            <div style="color:var(--primary); font-size:22px; margin-bottom:8px;"><i class="fas fa-boxes"></i></div>
+            <div style="font-weight:600; color:var(--dark); margin-bottom:4px;">📦 Gestão de Estoque</div>
+            <div style="font-size:13px; color:var(--gray-500);">Cadastro completo de produtos</div>
+          </div>
+          <div style="padding:18px; background:var(--gray-50); border-radius:var(--radius); border:1px solid var(--gray-200);">
+            <div style="color:var(--success); font-size:22px; margin-bottom:8px;"><i class="fas fa-cash-register"></i></div>
+            <div style="font-weight:600; color:var(--dark); margin-bottom:4px;">💳 PDV Caixa</div>
+            <div style="font-size:13px; color:var(--gray-500);">Ponto de venda rápido</div>
+          </div>
+          <div style="padding:18px; background:var(--gray-50); border-radius:var(--radius); border:1px solid var(--gray-200);">
+            <div style="color:#7c3aed; font-size:22px; margin-bottom:8px;"><i class="fas fa-images"></i></div>
+            <div style="font-weight:600; color:var(--dark); margin-bottom:4px;">🖼️ CIP Imagens</div>
+            <div style="font-size:13px; color:var(--gray-500);">Busca inteligente com IA</div>
+          </div>
+          <div style="padding:18px; background:var(--gray-50); border-radius:var(--radius); border:1px solid var(--gray-200);">
+            <div style="color:var(--warning); font-size:22px; margin-bottom:8px;"><i class="fas fa-file-invoice"></i></div>
+            <div style="font-weight:600; color:var(--dark); margin-bottom:4px;">📥 Entrada NF-e</div>
+            <div style="font-size:13px; color:var(--gray-500);">Importação via XML</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ESTOQUE ===== -->
+    <div class="tab-content" id="tab-estoque">
+      <div class="page-header">
+        <small>Cadastro</small>
+        <h2>Gestão de Estoque</h2>
+        <p>Cadastre, edite e controle todo o seu inventário</p>
+      </div>
+      <div class="card" style="text-align:center; padding:60px 20px;">
+        <i class="fas fa-boxes" style="font-size:48px; color:var(--gray-300); margin-bottom:16px;"></i>
+        <h3 style="color:var(--gray-600); margin-bottom:8px;">Módulo em construção</h3>
+        <p style="color:var(--gray-400);">Funcionalidade completa disponível na próxima atualização</p>
+      </div>
+    </div>
+
+    <!-- ===== PDV ===== -->
+    <div class="tab-content" id="tab-pdv">
+      <div class="page-header">
+        <small>Vendas</small>
+        <h2>PDV - Ponto de Venda</h2>
+        <p>Realize vendas rápidas e eficientes</p>
+      </div>
+      <div class="card" style="text-align:center; padding:60px 20px;">
+        <i class="fas fa-cash-register" style="font-size:48px; color:var(--gray-300); margin-bottom:16px;"></i>
+        <h3 style="color:var(--gray-600); margin-bottom:8px;">Módulo em construção</h3>
+        <p style="color:var(--gray-400);">Funcionalidade completa disponível na próxima atualização</p>
+      </div>
+    </div>
+
+    <!-- ===== IMPORT XML ===== -->
+    <div class="tab-content" id="tab-importxml">
+      <div class="page-header">
+        <small>Entrada de Mercadoria</small>
+        <h2>Importação de XML de NF-e</h2>
+        <p>Dê entrada automática no estoque via arquivo de Nota Fiscal Eletrônica</p>
+      </div>
+      <div class="card" style="text-align:center; padding:60px 20px;">
+        <i class="fas fa-file-invoice" style="font-size:48px; color:var(--gray-300); margin-bottom:16px;"></i>
+        <h3 style="color:var(--gray-600); margin-bottom:8px;">Módulo em construção</h3>
+        <p style="color:var(--gray-400);">Funcionalidade completa disponível na próxima atualização</p>
+      </div>
+    </div>
+
+    <!-- ===== CIP IMAGENS ===== -->
+    <div class="tab-content" id="tab-cip">
+      <div class="page-header">
+        <small>Inteligência Artificial</small>
+        <h2>CIP - Central Inteligente de Produtos</h2>
+        <p>Motor de busca automática de imagens com scoring e ranking inteligente</p>
+      </div>
+
+      <div class="cip-stats">
+        <div class="cip-stat pending">
+          <i class="fas fa-clock" style="color:var(--warning);"></i>
+          <div>
+            <div class="cip-stat-label">Pendentes</div>
+            <div class="cip-stat-value" id="cip-count-pendentes">0</div>
+          </div>
+        </div>
+        <div class="cip-stat approved">
+          <i class="fas fa-check-circle" style="color:var(--success);"></i>
+          <div>
+            <div class="cip-stat-label">Aprovadas</div>
+            <div class="cip-stat-value" id="cip-count-aprovadas">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">⏳ Aguardando Aprovação</div>
+      <div class="products-grid" id="lista-pendentes">
+        <div class="empty-state" style="grid-column:1/-1;">
+          <i class="fas fa-inbox"></i>
+          <p>Nenhuma imagem pendente de aprovação</p>
+        </div>
+      </div>
+
+      <div class="section-title">✅ Aprovadas</div>
+      <div class="products-grid" id="lista-aprovadas">
+        <div class="empty-state" style="grid-column:1/-1;">
+          <i class="fas fa-image"></i>
+          <p>Nenhuma imagem aprovada ainda</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div class="modal-title" id="modal-title">Confirmação</div>
+    <div class="modal-text" id="modal-text">Deseja realmente realizar esta ação?</div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" id="modal-confirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==============================
+// VARIÁVEIS GLOBAIS
+// ==============================
+let produtos = [];
+let abaAtual = 'dashboard';
+let modalCallback = null;
+
+// ==============================
+// NAVEGAÇÃO ENTRE ABAS
+// ==============================
+function mudarAba(nomeAba) {
+  abaAtual = nomeAba;
+  
+  // Esconder todas as abas
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Mostrar aba selecionada
+  const aba = document.getElementById('tab-' + nomeAba);
+  if (aba) aba.classList.add('active');
+  
+  // Atualizar menu
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+    if (item.dataset.tab === nomeAba) {
+      item.classList.add('active');
+    }
+  });
+  
+  // Ações específicas
+  if (nomeAba === 'cip') {
+    carregarCIP();
+  }
+  if (nomeAba === 'dashboard') {
+    atualizarKPIs();
+  }
+}
+
+// ==============================
+// ARMAZENAMENTO LOCAL
+// ==============================
+function salvarDados() {
+  localStorage.setItem('erp_progestao_produtos', JSON.stringify(produtos));
+}
+
+function carregarDados() {
+  const dados = localStorage.getItem('erp_progestao_produtos');
+  if (dados) {
+    produtos = JSON.parse(dados);
+  } else {
+    produtos = [];
+  }
+}
+
+// ==============================
+// MODAL
+// ==============================
+function abrirModal(titulo, texto, callback) {
+  document.getElementById('modal-title').textContent = titulo;
+  document.getElementById('modal-text').textContent = texto;
+  modalCallback = callback;
+  document.getElementById('modal').classList.add('active');
+}
+
+function fecharModal() {
+  document.getElementById('modal').classList.remove('active');
+  modalCallback = null;
+}
+
+document.getElementById('modal-confirm').addEventListener('click', () => {
+  if (modalCallback) modalCallback();
+  fecharModal();
+});
+
+// ==============================
+// DADOS DE EXEMPLO
+// ==============================
+function gerarDadosExemplo() {
+  abrirModal(
+    'Gerar Dados de Exemplo',
+    'Isso vai criar 4 produtos de exemplo para testar o sistema. Deseja continuar?',
+    () => {
+      produtos = [
+        { 
+          id: 1, 
+          nome: 'Camiseta Polo Azul', 
+          descricao: 'Camiseta polo masculina, cor azul, tamanho M, tecido 100% algodão', 
+          imagem: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400', 
+          imagemOficial: null,
+          estoque: 45,
+          minimo: 10
+        },
+        { 
+          id: 2, 
+          nome: 'Tênis Esportivo Branco', 
+          descricao: 'Tênis para corrida, cor branca, número 42, solado de borracha', 
+          imagem: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400', 
+          imagemOficial: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+          estoque: 28,
+          minimo: 8
+        },
+        { 
+          id: 3, 
+          nome: 'Mochila Executiva', 
+          descricao: 'Mochila para notebook até 15.6", couro sintético, cor preta', 
+          imagem: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400', 
+          imagemOficial: null,
+          estoque: 15,
+          minimo: 5
+        },
+        { 
+          id: 4, 
+          nome: 'Relógio de Pulso', 
+          descricao: 'Relógio analógico, pulseira de couro marrom, resistente à água', 
+          imagem: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400', 
+          imagemOficial: null,
+          estoque: 8,
+          minimo: 5
+        }
+      ];
+      
+      salvarDados();
+      atualizarKPIs();
+      mudarAba('cip');
+      
+      setTimeout(() => {
+        alert('✅ Dados de exemplo criados com sucesso!\n\n• 4 produtos cadastrados\n• 2 pendentes de aprovação\n• 2 já aprovadas\n\nNavegue pelo sistema e teste as funcionalidades!');
+      }, 300);
+    }
+  );
+}
+
+function limparBanco() {
+  abrirModal(
+    '⚠️ Resetar Sistema',
+    'ATENÇÃO: Isso vai APAGAR TODOS os dados salvos permanentemente! Deseja continuar?',
+    () => {
+      localStorage.removeItem('erp_progestao_produtos');
+      produtos = [];
+      atualizarKPIs();
+      carregarCIP();
+      alert('🗑️ Todos os dados foram apagados!');
+    }
+  );
+}
+
+// ==============================
+// APROVAR E REJEITAR IMAGENS
+// ==============================
+function aprovarImagem(produtoId) {
+  const produto = produtos.find(p => p.id === produtoId);
+  if (!produto) return;
+
+  if (!produto.imagem || !produto.imagem.startsWith('http')) {
+    alert('❌ URL da imagem inválida!');
+    return;
+  }
+
+  produto.imagemOficial = produto.imagem;
+  produto.dataAprovacao = new Date().toISOString();
+  
+  salvarDados();
+  carregarCIP();
+  atualizarKPIs();
+  
+  alert('✅ Imagem aprovada com sucesso!');
+}
+
+function rejeitarImagem(produtoId) {
+  abrirModal(
+    'Rejeitar Imagem',
+    'Tem certeza que deseja REJEITAR esta imagem? Ela será removida do produto.',
+    () => {
+      const produto = produtos.find(p => p.id === produtoId);
+      if (!produto) return;
+      
+      produto.imagem = null;
+      produto.imagemOficial = null;
+      
+      salvarDados();
+      carregarCIP();
+      atualizarKPIs();
+      
+      alert('❌ Imagem rejeitada!');
+    }
+  );
+}
+
+// ==============================
+// CARREGAR CIP
+// ==============================
+function carregarCIP() {
+  const pendentes = produtos.filter(p => !p.imagemOficial && p.imagem);
+  const aprovadas = produtos.filter(p => p.imagemOficial);
+  
+  // Atualizar contadores
+  document.getElementById('cip-count-pendentes').textContent = pendentes.length;
+  document.getElementById('cip-count-aprovadas').textContent = aprovadas.length;
+  
+  // Lista de PENDENTES
+  const divPend = document.getElementById('lista-pendentes');
+  
+  if (pendentes.length === 0) {
+    divPend.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1;">
+        <i class="fas fa-check-double"></i>
+        <p>Nenhuma imagem pendente de aprovação</p>
+      </div>`;
+  } else {
+    divPend.innerHTML = pendentes.map(p => `
+      <div class="product-card pending">
+        <div class="product-image">
+          <img src="${p.imagem}" alt="${p.nome}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'><i class=\\'fas fa-image\\'></i></div>'">
+        </div>
+        <div class="product-body">
+          <div class="product-title">${p.nome}</div>
+          <div class="product-id">ID: #${String(p.id).padStart(4, '0')}</div>
+          <div class="product-desc">${p.descricao || 'Sem descrição'}</div>
+          <span class="product-status status-pending"><i class="fas fa-clock"></i> Pendente</span>
+          <div class="product-actions">
+            <button class="btn btn-success btn-sm" onclick="aprovarImagem(${p.id})">
+              <i class="fas fa-check"></i> Aprovar
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="rejeitarImagem(${p.id})">
+              <i class="fas fa-times"></i> Rejeitar
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Lista de APROVADAS
+  const divApr = document.getElementById('lista-aprovadas');
+  
+  if (aprovadas.length === 0) {
+    divApr.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1;">
+        <i class="fas fa-images"></i>
+        <p>Nenhuma imagem aprovada ainda</p>
+      </div>`;
+  } else {
+    divApr.innerHTML = aprovadas.map(p => `
+      <div class="product-card approved">
+        <div class="product-image">
+          <img src="${p.imagemOficial}" alt="${p.nome}" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'><i class=\\'fas fa-image\\'></i></div>'">
+        </div>
+        <div class="product-body">
+          <div class="product-title">${p.nome}</div>
+          <div class="product-id">ID: #${String(p.id).padStart(4, '0')}</div>
+          <div class="product-desc">${p.descricao || 'Sem descrição'}</div>
+          <span class="product-status status-approved"><i class="fas fa-check"></i> Aprovada</span>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// ==============================
+// ATUALIZAR KPIs
+// ==============================
+function atualizarKPIs() {
+  const total = produtos.length;
+  const baixo = produtos.filter(p => p.estoque <= p.minimo).length;
+  const aprovadas = produtos.filter(p => p.imagemOficial).length;
+  const pendentes = produtos.filter(p => !p.imagemOficial && p.imagem).length;
+  
+  document.getElementById('kpi-produtos').textContent = total;
+  document.getElementById('kpi-baixo').textContent = baixo;
+  document.getElementById('kpi-aprovadas').textContent = aprovadas;
+  document.getElementById('kpi-pendentes').textContent = pendentes;
+  document.getElementById('badge-estoque').textContent = total;
+}
+
+// ==============================
+// INICIALIZAÇÃO
+// ==============================
+document.addEventListener('DOMContentLoaded', () => {
+  carregarDados();
+  atualizarKPIs();
+  mudarAba('dashboard');
+});
+
+// Fechar modal ao clicar fora
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') fecharModal();
+});
+</script>
+
+</body>
+</html>
